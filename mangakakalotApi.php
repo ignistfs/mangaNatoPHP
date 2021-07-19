@@ -3,12 +3,15 @@ class Kakalot{
 
   public $result;
   public $name;
-  
-  //method for searching manga on mangakakalot
-  //@param name - the name of the searching manga
+
+  //method for searching manga
+  //param $name
   //returns array with manga info
   function searchManga($name){
     $matches = array();
+    if(!isset($name)){
+      return;
+    }
     $html = file_get_contents('https://ww.mangakakalot.tv/search/'.$name);
     $dom = new DOMDocument;
     @$dom->loadHTML($html);
@@ -58,8 +61,10 @@ class Kakalot{
       }
       else{
         $chapterlink = 'https://ww.mangakakalot.tv/'.$link->getAttribute('href');
-        array_push($manga[$nr-1]['latest'],$chapterlink);
-
+        array_push($manga[$nr-1]['latest'],array(
+          "link"=>$chapterlink,
+          "title"=>$link->nodeValue
+        ));
       }
       }
 
@@ -78,7 +83,8 @@ class Kakalot{
     $this->result=$manga[$index];
     }
 
-  //method for returning the result
+    //method for returning result
+
     function getResult(){
       return $this->result;
     }
