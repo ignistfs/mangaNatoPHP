@@ -3,8 +3,9 @@ class Kakalot{
 
   public $result;
   public $name;
-
-  //param @name - the name of the searching manga
+  
+  //method for searching manga on mangakakalot
+  //@param name - the name of the searching manga
   //returns array with manga info
   function searchManga($name){
     $matches = array();
@@ -77,7 +78,7 @@ class Kakalot{
     $this->result=$manga[$index];
     }
 
-
+  //method for returning the result
     function getResult(){
       return $this->result;
     }
