@@ -25,7 +25,7 @@
 </form>
 <?php
 
-require("../mangakakalotApi.php");
+require("../mangaNatoPHP.php");
 
 
 $getmanga= new Kakalot;

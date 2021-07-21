@@ -10,12 +10,12 @@ if(!isset($_GET['k'])){
   return;
 }
 
-require("../mangakakalotApi.php");
+require("../mangaNatoPHP.php");
 
 
-$getmanga= new Kakalot;
+$getmanga= new Nato;
 $getmanga->searchManga($_GET['k']); //search for mangaid with the search method
-$mangaid = $getmanga->getResult()['mangaid']; // get mangaid
+$mangaid = $getmanga->getResult()['link']; // get mangaid
 $getmanga->getMangaInfo($mangaid); //fetch manga info
 $MangaInfo=$getmanga->getResult();
 
@@ -31,7 +31,7 @@ Html Result :
 <?php
 
 foreach($MangaInfo['chapters'] as $chapter){
-  print("<a href='".$chapter['link']."'>".$chapter['title']."</a><br>");
+  print("<a href='test4.php?url=".$chapter['link']."'>".$chapter['title']."</a><br>");
 }
 
 
