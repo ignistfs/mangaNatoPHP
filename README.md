@@ -5,6 +5,7 @@ A PHP Class for scraping data from manganato.com
 
 
 #USAGE&nbsp;&nbsp;
+
 Search for manga using manga name&nbsp;
 ```php
 <?php
@@ -17,6 +18,7 @@ print_r($nato->getResult());
 &nbsp;&nbsp;
 Requires parameter $name for searching manga, returns array(title, img, link,latest chapters,mangaid)  with manga  info.
 &nbsp;&nbsp;
+
 Get manga information using manga link&nbsp;
 ```php
 <?php
@@ -30,6 +32,7 @@ print_r($nato->getResult());
 Requires parameter $mangalink,returns array(title, description, cover,chapters)  with manga  info.
 Optional parameter $latestN for specifying the number of latest chapters to fetch.
 &nbsp;&nbsp;
+
 Get chapter images using manga link&nbsp;
 ```php
 <?php
