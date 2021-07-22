@@ -1,6 +1,6 @@
 <center>
   <h1>Test and demo for getMangaInfo method</h1>
-  <h2>searchManga will be used first to get a mangaid</h2>
+  <h2>searchManga will be used first to get a mangalink</h2>
 <form action="test2.php" method="GET">
 <input style="margin:5px;width:200px;;height:60px;" placeholder="Search manga by name" name="k" />
 
