@@ -1,5 +1,4 @@
 <?php
-
 class Nato{
   public $result;
   public $name;
@@ -173,15 +172,15 @@ class Nato{
     //method for fetching chapter images
     //images are protected so they need to be downloaded and stored locally
     //param $chaplink is required (the link for the chapter)
+    //param $downloadLocally is required (true or false to download the files locally)
     //param $localPATH is required (the folder to save the images locally)
     //returns an array with the path to the local file, a html element with the image and a url with the remote file
-    function getChapter($localPATH,$chaplink){
+
+    function getChapter($localPATH,$chaplink,$downloadLocally = false){
       if(!isset($chaplink)){
         return;
       }
-      if(!isset($localPATH)){
-        return;
-      }
+
       $page = file_get_contents($chaplink);
       $doc = new DOMDocument();
       @$doc->loadHTML($page);
@@ -190,6 +189,11 @@ class Nato{
       foreach($doc->getElementsByTagName('div') as $div){
           if($div->getAttribute('class') == 'container-chapter-reader' OR $div->getAttribute('class') == 'container-chapter-reader'){
             foreach($div->getElementsByTagName('img') as $img){
+
+            if($downloadLocally == true){
+              if(!isset($localPATH)){
+                return;
+              }
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $img->getAttribute('src'));
             curl_setopt($ch, CURLOPT_REFERER, "https://readmanganato.com/");
@@ -202,14 +206,23 @@ class Nato{
             $fp = fopen($localPATH."/$uqfilename",'w');
             fwrite($fp, $rawdata);
             fclose($fp);
-
             $localFileHTML=("<img src='".$localPATH."/".$uqfilename."'/><br>");
             $localFile = 'cache_img/'.$uqfilename;
+            }
             $remoteFile = $img->getAttribute('src');
+            $remoteFileHTML=("<img src='".$remoteFile."'/><br>");
+            if(!isset($localFile)){
+              $localFile = 'null';
+            }
+            if(!isset($localFileHTML)){
+              $localFileHTML = 'null';
+            }
             $image = array(
               "localFile"=> $localFile,
               "localFileHTML"=> $localFileHTML,
               "remoteFile"=> $remoteFile,
+              "remoteFileHTML"=> $remoteFileHTML,
+
             );
             array_push($images,$image);
 
@@ -220,10 +233,6 @@ class Nato{
       $this->result=$images;
 
     }
-
-
-
-
 }
 
 
